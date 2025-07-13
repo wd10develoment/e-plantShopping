@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./ProductList.css";
 import CartItem from "./CartItem";
-import { addItem } from "./CartSlice";
+import { addItem, removeItem } from "./CartSlice";
 import { useDispatch } from "react-redux";
 function ProductList({ onHomeClick }) {
   const [showCart, setShowCart] = useState(false);
@@ -345,6 +345,16 @@ function ProductList({ onHomeClick }) {
                     stroke-width="2"
                     id="mainIconPathAttribute"
                   ></path>
+                  <text
+                    x="150"
+                    y="150"
+                    fontSize="60"
+                    fill="red"
+                    fontWeight="bold"
+                    textAnchor="middle"
+                  >
+                    {Object.keys(addedToCart).length}
+                  </text>
                 </svg>
               </h1>
             </a>

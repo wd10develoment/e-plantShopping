@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import "./ProductList.css";
 import CartItem from "./CartItem";
 import { addItem, removeItem } from "./CartSlice";
-import { useDispatch } from "react-redux";
+
 function ProductList({ onHomeClick }) {
   const [showCart, setShowCart] = useState(false);
   const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
   const dispatch = useDispatch();
   const [addedToCart, setAddedToCart] = useState({});
+  const cart = useSelector((state) => state.cart.items);
   const plantsArray = [
     {
       category: "Air Purifying Plants",
@@ -271,6 +273,13 @@ function ProductList({ onHomeClick }) {
     textDecoration: "none",
   };
 
+  const calculateTotalAmount = () => {
+    let totalAmount = 0;
+    cart.forEach((element) => {
+      totalAmount += element.quantity;
+    });
+    return totalAmount;
+  };
   const handleHomeClick = (e) => {
     e.preventDefault();
     onHomeClick();
@@ -353,7 +362,7 @@ function ProductList({ onHomeClick }) {
                     fontWeight="bold"
                     textAnchor="middle"
                   >
-                    {Object.keys(addedToCart).length}
+                    {calculateTotalAmount()}
                   </text>
                 </svg>
               </h1>
